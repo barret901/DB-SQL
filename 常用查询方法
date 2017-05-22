@@ -1,0 +1,8 @@
+1、表的列数据按照条件不同输出为不同列，并统计
+SELECT t.ORG_NAME, t.SITE_NAME, t.POST_NAME, t.YEARTH,
+  SUM(case when t.RESERVED_1='本科' then t.TASK_NUMBER_SUM else 0 end) AS TASK_NUMBER_BA,
+  SUM(case when t.RESERVED_1='硕士' then t.TASK_NUMBER_SUM else 0 end) AS TASK_NUMBER_MA,
+  SUM(case when t.RESERVED_1='博士' then t.TASK_NUMBER_SUM else 0 end) AS TASK_NUMBER_DO
+FROM T_CAMPUS_TASK t
+WHERE SITE_ID LIKE #{siteId} AND POST_ID LIKE #{postId} AND ORGANIZATION LIKE #{orgId} AND YEARTH LIKE #{yearth}
+GROUP BY t.ORG_NAME, t.SITE_NAME, t.POST_NAME, t.YEARTH;
